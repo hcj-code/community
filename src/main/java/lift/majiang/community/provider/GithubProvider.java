@@ -10,11 +10,14 @@ import java.io.IOException;
 
 @Component
 public class GithubProvider {
+    /**
+     * 根据OkHttp 的post请求代码改写的(像GitHub请求获取token)
+     * @param accessTokenDto
+     * @return
+     */
     public String getAccessToken(AccessTokenDto accessTokenDto){
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-
         OkHttpClient client = new OkHttpClient();
-
         RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDto));
         Request request = new Request.Builder()
                 .url("https://github.com/login/oauth/access_token")
@@ -33,6 +36,11 @@ public class GithubProvider {
         return null;
     }
 
+    /**
+     * 根据OkHttp 的post请求代码改写的（向GitHub请求获取用户信息）
+     * @param accessToken
+     * @return
+     */
     public GithubUser getUser(String accessToken){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
